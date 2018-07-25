@@ -2,7 +2,6 @@
 
 namespace Rdehnhardt\Passport;
 
-use Illuminate\Auth\PassportUserProvider;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Guard;
@@ -23,9 +22,12 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Auth::extend('passport', function ($app) {
+        Auth::provider('passport', function ($app) {
+            return new PassportUserProvider($app->make(User::class));
+        });
 
-            return new \Rdehnhardt\Passport\PassportUserProvider();
+        Auth::extend('passport', function ($app, $name, array $config) {
+            return new PassportGuard(Auth::createUserProvider($config['provider']), $app->make('request'));
         });
     }
 }

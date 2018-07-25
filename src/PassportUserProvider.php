@@ -2,75 +2,25 @@
 
 namespace Rdehnhardt\Passport;
 
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Auth\UserProvider;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Hashing\Hasher as HasherContract;
-use Illuminate\Contracts\Auth\Authenticatable as UserContract;
+use Illuminate\Contracts\Auth\Authenticatable;
 
-class PassportUserProvider implements UserProvider, Guard
+class PassportUserProvider implements UserProvider
 {
     /**
-     * Determine if the current user is authenticated.
-     *
-     * @return bool
+     * @var User
      */
-    public function check()
-    {
-        // TODO: Implement guest() method.
-    }
+    private $model;
 
     /**
-     * Determine if the current user is a guest.
+     * Create a new passport user provider.
      *
-     * @return bool
+     * @param User $model
      */
-    public function guest()
+    public function __construct(User $model)
     {
-        // TODO: Implement guest() method.
-    }
-
-    /**
-     * Get the currently authenticated user.
-     *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
-     */
-    public function user()
-    {
-        // TODO: Implement user() method.
-    }
-
-    /**
-     * Get the ID for the currently authenticated user.
-     *
-     * @return int|null
-     */
-    public function id()
-    {
-        // TODO: Implement id() method.
-    }
-
-    /**
-     * Validate a user's credentials.
-     *
-     * @param  array $credentials
-     * @return bool
-     */
-    public function validate(array $credentials = [])
-    {
-        // TODO: Implement validate() method.
-    }
-
-    /**
-     * Set the current user.
-     *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @return void
-     */
-    public function setUser(UserContract $user)
-    {
-        // TODO: Implement setUser() method.
+        $this->model = $model;
     }
 
     /**
@@ -81,7 +31,13 @@ class PassportUserProvider implements UserProvider, Guard
      */
     public function retrieveById($identifier)
     {
-        // TODO: Implement retrieveById() method.
+        if (empty($credentials)) {
+            return;
+        }
+
+        $user = $this->model->fetchUserByCredentials(['username' => $credentials['username']]);
+
+        return $user;
     }
 
     /**
@@ -103,7 +59,7 @@ class PassportUserProvider implements UserProvider, Guard
      * @param  string $token
      * @return void
      */
-    public function updateRememberToken(UserContract $user, $token)
+    public function updateRememberToken(Authenticatable $user, $token)
     {
         // TODO: Implement updateRememberToken() method.
     }
@@ -126,7 +82,7 @@ class PassportUserProvider implements UserProvider, Guard
      * @param  array $credentials
      * @return bool
      */
-    public function validateCredentials(UserContract $user, array $credentials)
+    public function validateCredentials(Authenticatable $user, array $credentials)
     {
         // TODO: Implement validateCredentials() method.
     }

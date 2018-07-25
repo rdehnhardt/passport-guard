@@ -10,6 +10,7 @@
   ],
   "require": {
     "illuminate/auth": "^5.5",
+    "illuminate/http": "^5.5",
     "illuminate/support": "^5.5",
     "illuminate/contracts": "^5.5"
   },
