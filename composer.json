@@ -1,0 +1,27 @@
+{
+  "name": "rdehnhardt/passport-guard",
+  "description": "Laravel Passport Guard",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Renato Dehnhardt",
+      "email": "renatotkd@gmail.com"
+    }
+  ],
+  "require": {
+    "laravelcollective/html": "~5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Rdehnhardt\\Guard\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Rdehnhardt\\Guard\\GuardServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev"
+}
