@@ -34,6 +34,8 @@ class PassportGuard implements Guard
     {
         $this->provider = $provider;
         $this->request = $request;
+
+        dd($this);
     }
 
     /**
