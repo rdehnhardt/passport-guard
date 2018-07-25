@@ -9,17 +9,19 @@
     }
   ],
   "require": {
-    "laravelcollective/html": "~5.6"
+    "illuminate/auth": "^5.5",
+    "illuminate/support": "^5.5",
+    "illuminate/contracts": "^5.5"
   },
   "autoload": {
     "psr-4": {
-      "Rdehnhardt\\Guard\\": "src/"
+      "Rdehnhardt\\Passport\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Rdehnhardt\\Guard\\AuthServiceProvider"
+        "Rdehnhardt\\Passport\\AuthServiceProvider"
       ]
     }
   },

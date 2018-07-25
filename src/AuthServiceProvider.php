@@ -1,8 +1,13 @@
 <?php
 
-namespace Rdehnhardt\Guard;
+namespace Rdehnhardt\Passport;
 
-class AuthServiceProvider
+use Illuminate\Auth\PassportUserProvider;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Guard;
+
+class AuthServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -18,21 +23,9 @@ class AuthServiceProvider
      */
     public function boot()
     {
-        $this->package('rdehnhardt/passport-guard');
+        Auth::extend('passport', function ($app) {
 
-        Auth::extend('passport', function($app)
-        {
-            $passport = $app['passport'];
-            $model = null;
-
-            if (isset($app['config']['auth.model'])) {
-                $model = $app['config']['auth.model'];
-            }
-
-            $sessionStore = \App::make('session.store');
-            $userProvider = new PassportUserProvider($passport, $passport->getBucket($bucketName), $model, $app['hash']);
-
-            return new Guard($userProvider, $sessionStore);
+            return new \Rdehnhardt\Passport\PassportUserProvider();
         });
     }
 }
