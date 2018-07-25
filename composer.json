@@ -19,7 +19,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Rdehnhardt\\Guard\\GuardServiceProvider"
+        "Rdehnhardt\\Guard\\AuthServiceProvider"
       ]
     }
   },
